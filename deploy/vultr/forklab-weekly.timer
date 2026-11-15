@@ -1,0 +1,9 @@
+[Unit]
+Description=Run the ForkLab weekly settle job hourly
+
+[Timer]
+OnCalendar=hourly
+Persistent=true
+
+[Install]
+WantedBy=timers.target

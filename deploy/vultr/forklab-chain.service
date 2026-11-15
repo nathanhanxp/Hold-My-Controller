@@ -1,0 +1,14 @@
+[Unit]
+Description=ForkLab chain worker (anchors publishes on devnet)
+After=network-online.target
+
+[Service]
+User=forklab
+WorkingDirectory=/opt/forklab/chain
+EnvironmentFile=/opt/forklab/.env
+ExecStart=/usr/bin/npx tsx anchor-worker.ts
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,4 @@
+yourdomain.xyz, www.yourdomain.xyz {
+  encode gzip
+  reverse_proxy localhost:3000
+}

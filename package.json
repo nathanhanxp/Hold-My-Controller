@@ -1,0 +1,25 @@
+{
+  "name": "forklab",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": [
+    "engine",
+    "web",
+    "chain",
+    "bot"
+  ],
+  "scripts": {
+    "check": "npm run typecheck && npm run test",
+    "typecheck": "npm run typecheck -w engine && npm run typecheck -w web && npm run typecheck -w chain",
+    "test": "tsx scripts/count-tests.ts",
+    "dev": "npm run dev -w web",
+    "smoke": "tsx scripts/smoke.ts",
+    "golden": "npm run golden -w engine",
+    "indexes": "tsx scripts/create-indexes.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "tsx": "^4.20.3",
+    "typescript": "^5.9.2"
+  }
+}

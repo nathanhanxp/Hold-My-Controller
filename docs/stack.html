@@ -1,0 +1,114 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>ForkLab tech stack pipeline</title>
+<style>
+  :root { --ink:#1A1714; --paper:#F5F1EA; --clay:#A4441D; --muted:#5E554C; }
+  * { margin:0; box-sizing:border-box; }
+  body { width:2400px; height:1060px; background:var(--paper); color:var(--ink); font-family:"Helvetica Neue", Arial, sans-serif; position:relative; overflow:hidden; }
+  h1 { position:absolute; left:60px; top:40px; font-family:Georgia, serif; font-size:60px; font-weight:600; }
+  .sub { position:absolute; left:60px; top:118px; font-size:28px; color:var(--muted); }
+  .n { position:absolute; top:196px; font-size:20px; letter-spacing:4px; text-transform:uppercase; font-weight:700; color:var(--clay); }
+  .head { position:absolute; top:236px; width:380px; height:96px; background:#FFFFFF; border:3px solid var(--ink); display:flex; align-items:center; gap:18px; padding:0 22px; }
+  .head img { width:56px; height:56px; }
+  .head .pair { display:flex; gap:10px; }
+  .head .pair img { width:46px; height:46px; }
+  .head p { font-family:Georgia, serif; font-size:34px; font-weight:600; line-height:1.05; }
+  .fn { position:absolute; width:380px; height:112px; border:2px solid var(--ink); background:#FBF8F3; display:flex; align-items:center; gap:18px; padding:0 20px; }
+  .fn img { width:44px; height:44px; flex:none; }
+  .fn b { display:block; font-size:24px; margin-bottom:4px; }
+  .fn span { font-size:20px; line-height:1.3; color:var(--muted); }
+  .flow { position:absolute; top:226px; width:95px; text-align:center; font-size:18px; font-weight:700; color:var(--clay); line-height:1.2; }
+  .lbl { position:absolute; background:var(--paper); padding:0 8px; font-size:19px; font-weight:700; color:var(--clay); white-space:nowrap; }
+  .band { position:absolute; left:60px; top:860px; width:2280px; height:150px; border:3px dashed var(--muted); }
+  .band .t { position:absolute; left:30px; top:44px; display:flex; align-items:center; gap:16px; font-family:Georgia, serif; font-size:34px; font-weight:600; }
+  .band .t img { width:56px; height:56px; }
+  .chip { position:absolute; top:880px; height:110px; border:2px solid var(--ink); background:#FFFFFF; display:flex; align-items:center; gap:14px; padding:0 18px; }
+  .chip img { width:40px; height:40px; }
+  .chip b { display:block; font-size:22px; }
+  .chip span { font-size:19px; color:var(--muted); }
+  svg { position:absolute; left:0; top:0; }
+</style></head>
+<body>
+<h1>ForkLab tech stack pipeline</h1>
+<p class="sub">What each technology does, in the order a mechanic moves through the app.</p>
+
+<!-- Stage labels and headers -->
+<p class="n" style="left:60px;">1 · Create</p>
+<p class="n" style="left:535px;">2 · Run</p>
+<p class="n" style="left:1010px;">3 · Store and find</p>
+<p class="n" style="left:1485px;">4 · Credit and pay</p>
+<p class="n" style="left:1960px;">5 · Ship</p>
+
+<div class="head" style="left:60px;"><span class="pair"><img src="logos/nextdotjs.svg" alt=""><img src="logos/googlegemini.svg" alt=""></span><p>Next.js + Gemini</p></div>
+<div class="head" style="left:535px;"><img src="logos/typescript.svg" alt=""><p>TypeScript engine</p></div>
+<div class="head" style="left:1010px;"><img src="logos/mongodb.svg" alt=""><p>MongoDB Atlas</p></div>
+<div class="head" style="left:1485px;"><img src="logos/solana.svg" alt=""><p>Solana devnet</p></div>
+<div class="head" style="left:1960px;"><img src="logos/unity.svg" alt=""><p>Unity</p></div>
+
+<p class="flow" style="left:440px;">graph<br>JSON</p>
+<p class="flow" style="left:915px;">graph<br>+ hash</p>
+<p class="flow" style="left:1390px;">author<br>shares</p>
+<p class="flow" style="left:1865px;">C#<br>code</p>
+
+<!-- Column 1 -->
+<div class="fn" style="left:60px;top:356px;"><img src="logos/react.svg" alt=""><div><b>React Flow editor</b><span>Wire game logic as a graph</span></div></div>
+<div class="fn" style="left:60px;top:500px;"><img src="logos/googlegemini.svg" alt=""><div><b>Gemini API</b><span>Drafts a graph from text or an image</span></div></div>
+<div class="fn" style="left:60px;top:644px;"><img src="logos/nvidia.svg" alt=""><div><b>NVIDIA Nemotron</b><span>Backup AI if Gemini fails</span></div></div>
+
+<!-- Column 2 -->
+<div class="fn" style="left:535px;top:356px;"><img src="logos/typescript.svg" alt=""><div><b>Game engine</b><span>Same result every run</span></div></div>
+<div class="fn" style="left:535px;top:500px;"><img src="logos/zod.svg" alt=""><div><b>zod</b><span>Checks every graph before it runs</span></div></div>
+<div class="fn" style="left:535px;top:644px;"><img src="logos/threedotjs.svg" alt=""><div><b>three.js</b><span>Draws the game in the browser</span></div></div>
+
+<!-- Column 3 -->
+<div class="fn" style="left:1010px;top:356px;"><img src="logos/mongodb.svg" alt=""><div><b>Collections</b><span>Saves every mechanic by its hash</span></div></div>
+<div class="fn" style="left:1010px;top:500px;"><img src="logos/mongodb.svg" alt=""><div><b>$graphLookup</b><span>Builds each family tree</span></div></div>
+<div class="fn" style="left:1010px;top:644px;"><img src="logos/mongodb.svg" alt=""><div><b>Vector Search</b><span>Search by description</span></div></div>
+
+<!-- Column 4 -->
+<div class="fn" style="left:1485px;top:356px;"><img src="logos/rust.svg" alt=""><div><b>Anchor program</b><span>Splits a license to every author</span></div></div>
+<div class="fn" style="left:1485px;top:500px;"><img src="logos/solana.svg" alt=""><div><b>Prize escrow</b><span>Holds and pays the weekly pool</span></div></div>
+<div class="fn" style="left:1485px;top:644px;"><img src="logos/solana.svg" alt=""><div><b>Memo + Blinks</b><span>Public proof; license from a link</span></div></div>
+
+<!-- Column 5 -->
+<div class="fn" style="left:1960px;top:356px;"><img src="logos/dotnet.svg" alt=""><div><b>C# exporter</b><span>Turns the graph into Unity code</span></div></div>
+<div class="fn" style="left:1960px;top:500px;"><img src="logos/unity.svg" alt=""><div><b>Unity importer</b><span>Drops it into a project</span></div></div>
+
+<!-- Hosting band -->
+<div class="band"><p class="t"><img src="logos/vultr.svg" alt="">Runs on Vultr</p></div>
+<div class="chip" style="left:420px;"><img src="logos/caddy.svg" alt=""><div><b>Caddy</b><span>HTTPS</span></div></div>
+<div class="chip" style="left:720px;"><img src="logos/nextdotjs.svg" alt=""><div><b>Next.js app</b><span>Pages and API routes</span></div></div>
+<div class="chip" style="left:1490px;"><img src="logos/solana.svg" alt=""><div><b>Chain worker</b><span>Writes proofs</span></div></div>
+<div class="chip" style="left:1960px;"><img src="logos/solana.svg" alt=""><div><b>Weekly job</b><span>Settles the pool</span></div></div>
+
+<svg width="2400" height="1060" viewBox="0 0 2400 1060">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#A4441D"/></marker>
+    <marker id="b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#5E554C"/></marker>
+  </defs>
+  <!-- Main pipeline -->
+  <g stroke="#A4441D" stroke-width="5" fill="none" marker-end="url(#a)">
+    <path d="M444 304 L529 304"/><path d="M919 304 L1004 304"/><path d="M1394 304 L1479 304"/><path d="M1869 304 L1954 304"/>
+  </g>
+  <!-- Supporting links -->
+  <g stroke="#5E554C" stroke-width="3" fill="none" marker-end="url(#b)">
+    <!-- Gemini to Nemotron, backup -->
+    <path d="M250 612 L250 640" stroke-dasharray="6 5"/>
+    <!-- Gemini embeddings to Vector Search -->
+    <path d="M440 556 L480 556 L480 800 L1200 800 L1200 760"/>
+    <!-- Caddy to Next.js app -->
+    <path d="M640 935 L714 935"/>
+    <!-- Chain worker to Memo -->
+    <path d="M1640 880 L1640 760"/>
+    <!-- Weekly job to Prize escrow -->
+    <path d="M2060 880 L2060 830 L1915 830 L1915 556 L1869 556"/>
+    <!-- Next.js app to editor -->
+    <path d="M870 880 L870 830 L250 830 L250 760"/>
+  </g>
+</svg>
+
+<span class="lbl" style="left:268px;top:614px;">if down</span>
+<span class="lbl" style="left:640px;top:788px;">embeddings for search</span>
+<span class="lbl" style="left:420px;top:818px;">serves the app</span>
+<span class="lbl" style="left:1652px;top:796px;">writes proofs</span>
+<span class="lbl" style="left:1924px;top:640px;">pays winners</span>
+</body></html>

@@ -1,0 +1,19 @@
+[toolchain]
+anchor_version = "0.32.1"
+
+[features]
+resolution = true
+skip-lint = false
+
+[programs.localnet]
+forklab = "Fork1abXXWq9pVRLz5u4Ep6ufJmrcg9F4cY9Hy4F6Kj"
+
+[programs.devnet]
+forklab = "Fork1abXXWq9pVRLz5u4Ep6ufJmrcg9F4cY9Hy4F6Kj"
+
+[provider]
+cluster = "Localnet"
+wallet = "~/.config/solana/id.json"
+
+[scripts]
+test = "npx tsx --test programs/forklab/tests/*.test.ts"

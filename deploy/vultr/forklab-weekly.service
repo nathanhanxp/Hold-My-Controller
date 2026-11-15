@@ -1,0 +1,9 @@
+[Unit]
+Description=ForkLab weekly settle job
+
+[Service]
+Type=oneshot
+User=forklab
+WorkingDirectory=/opt/forklab/chain
+EnvironmentFile=/opt/forklab/.env
+ExecStart=/usr/bin/npx tsx settle-weekly.ts

@@ -1,0 +1,94 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>ForkLab overview</title>
+<style>
+  :root { --ink:#1A1714; --paper:#F5F1EA; --clay:#A4441D; --muted:#5E554C; --blue:#2F5D8A; }
+  * { margin:0; box-sizing:border-box; }
+  body { width:2400px; height:1300px; background:var(--paper); color:var(--ink); font-family:"Helvetica Neue", Arial, sans-serif; position:relative; overflow:hidden; }
+  h1 { position:absolute; left:60px; top:44px; font-family:Georgia, serif; font-size:60px; font-weight:600; }
+  .sub { position:absolute; left:60px; top:122px; font-size:28px; color:var(--muted); }
+  .label { position:absolute; font-size:20px; letter-spacing:4px; text-transform:uppercase; font-weight:700; color:var(--clay); }
+  .step { position:absolute; top:240px; width:400px; height:330px; border:3px solid var(--ink); background:#FBF8F3; padding:26px 28px; display:flex; flex-direction:column; gap:12px; }
+  .step .n { font-family:Georgia, serif; font-size:30px; color:var(--clay); font-weight:700; }
+  .step h2 { font-family:Georgia, serif; font-size:44px; font-weight:600; line-height:1; }
+  .step p { font-size:24px; line-height:1.35; color:var(--muted); }
+  .new { margin-top:auto; align-self:flex-start; background:var(--clay); color:#fff; font-size:20px; font-weight:700; padding:6px 14px; border-radius:20px; }
+  .engine { position:absolute; left:60px; top:650px; width:2280px; height:150px; background:var(--ink); color:var(--paper); padding:28px 40px; display:flex; align-items:center; gap:40px; }
+  .engine h2 { font-family:Georgia, serif; font-size:44px; font-weight:600; white-space:nowrap; }
+  .engine p { font-size:26px; line-height:1.35; color:#CFC3B2; }
+  .engine .new { margin-top:0; align-self:center; white-space:nowrap; }
+  .tech { position:absolute; top:880px; width:720px; height:300px; border:3px solid var(--blue); background:#FBF8F3; padding:26px 30px; display:flex; flex-direction:column; gap:12px; }
+  .tech h2 { font-family:Georgia, serif; font-size:42px; font-weight:600; color:var(--blue); }
+  .tech .role { font-size:22px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--muted); }
+  .tech ul { padding-left:24px; }
+  .tech li { font-size:25px; line-height:1.4; color:var(--muted); }
+  .foot { position:absolute; left:60px; top:1220px; font-size:22px; color:var(--muted); }
+  svg { position:absolute; left:0; top:0; }
+</style></head>
+<body>
+<h1>ForkLab: how it works</h1>
+<p class="sub">A beginner’s path from first game mechanic to Unity, with credit for everyone whose work you build on.</p>
+
+<p class="label" style="left:60px;top:200px;">The beginner’s path</p>
+
+<div class="step" style="left:60px;">
+  <p class="n">1</p><h2>Learn</h2>
+  <p>Guided tutorials check each step as you wire nodes.</p>
+  <span class="new">AI explains, you decide</span>
+</div>
+<div class="step" style="left:530px;">
+  <p class="n">2</p><h2>Build</h2>
+  <p>Game logic as a visual graph. AI drafts arrive as graphs you can read.</p>
+  <span class="new">Readable AI drafts</span>
+</div>
+<div class="step" style="left:1000px;">
+  <p class="n">3</p><h2>Remix</h2>
+  <p>Fork any mechanic. Colors show who wrote every node.</p>
+  <span class="new">Credit per node</span>
+</div>
+<div class="step" style="left:1470px;">
+  <p class="n">4</p><h2>Compete</h2>
+  <p>A weekly community game built on the best mechanic.</p>
+  <span class="new">Cheat-proof scores</span>
+</div>
+<div class="step" style="left:1940px;">
+  <p class="n">5</p><h2>Graduate</h2>
+  <p>Export to Unity and keep building as a real developer.</p>
+  <span class="new">Same result in Unity</span>
+</div>
+
+<div class="engine">
+  <h2>One game engine</h2>
+  <p>Every mechanic runs exactly the same in the browser, on our server and in Unity. That makes fair scores, honest credit and clean exports possible.</p>
+  <span class="new">Our core novelty</span>
+</div>
+
+<p class="label" style="left:60px;top:840px;">Powered by</p>
+<div class="tech" style="left:60px;">
+  <h2>MongoDB Atlas</h2>
+  <p class="role">Memory</p>
+  <ul><li>Stores every mechanic and fork</li><li>Traces each one’s family tree</li><li>Search by describing what you want</li></ul>
+</div>
+<div class="tech" style="left:840px;">
+  <h2>Gemini</h2>
+  <p class="role">Helper</p>
+  <ul><li>Drafts and explains mechanics</li><li>Writes what changed between forks</li><li>Backup AI takes over if it’s down</li></ul>
+</div>
+<div class="tech" style="left:1620px;">
+  <h2>Solana</h2>
+  <p class="role">Credit you can cash</p>
+  <ul><li>One payment splits to every author</li><li>Holds and pays the weekly prize pool</li><li>Anyone can check the record</li></ul>
+</div>
+
+<svg width="2400" height="1300" viewBox="0 0 2400 1300">
+  <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#A4441D"/></marker></defs>
+  <g stroke="#A4441D" stroke-width="4" fill="none" marker-end="url(#a)">
+    <path d="M460 405 L526 405"/><path d="M930 405 L996 405"/><path d="M1400 405 L1466 405"/><path d="M1870 405 L1936 405"/>
+  </g>
+  <g stroke="#1A1714" stroke-width="3" fill="none">
+    <path d="M260 570 L260 650"/><path d="M730 570 L730 650"/><path d="M1200 570 L1200 650"/><path d="M1670 570 L1670 650"/><path d="M2140 570 L2140 650"/>
+    <path d="M420 800 L420 880"/><path d="M1200 800 L1200 880"/><path d="M1980 800 L1980 880"/>
+  </g>
+</svg>
+
+<p class="foot">Runs on Solana devnet. A demo mode runs the whole app with no keys or database.</p>
+</body></html>

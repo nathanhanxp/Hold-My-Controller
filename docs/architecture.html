@@ -1,0 +1,216 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>ForkLab architecture</title>
+<style>
+  :root { --ink:#1A1714; --paper:#F5F1EA; --clay:#A4441D; --muted:#5E554C; --rule:#CFC5B6; --blue:#2F5D8A; --green:#3C6E47; --purple:#6A4C93; }
+  * { margin:0; box-sizing:border-box; }
+  body { width:2400px; height:1760px; background:var(--paper); color:var(--ink); font-family: "Helvetica Neue", Arial, sans-serif; position:relative; overflow:hidden; }
+  h1 { position:absolute; left:40px; top:28px; font-family: Georgia, serif; font-size:44px; font-weight:600; }
+  .sub { position:absolute; left:40px; top:84px; font-size:20px; color:var(--muted); }
+  .col { position:absolute; top:122px; font-size:15px; letter-spacing:3px; text-transform:uppercase; font-weight:700; color:var(--clay); }
+  .box { position:absolute; border:2px solid var(--ink); background:#FBF8F3; padding:14px 18px; }
+  .box h3 { font-family: Georgia, serif; font-size:24px; font-weight:600; margin-bottom:8px; }
+  .box p, .box li { font-size:18.5px; line-height:1.4; color:var(--muted); }
+  .box ul { padding-left:18px; }
+  .box b { color:var(--ink); }
+  .container { position:absolute; border:2px dashed var(--muted); background:transparent; }
+  .container .lbl { position:absolute; left:16px; top:-14px; background:var(--paper); padding:0 8px; font-size:16px; font-weight:700; color:var(--ink); }
+  .core { background:var(--ink); border-color:var(--ink); }
+  .core h3 { color:var(--paper); } .core p, .core li { color:#CFC3B2; } .core b { color:#F5F1EA; }
+  .ext { border-color:var(--blue); } .ext h3 { color:var(--blue); }
+  .job { border-color:var(--purple); } .job h3 { color:var(--purple); }
+  svg { position:absolute; left:0; top:0; }
+  .tag { position:absolute; background:var(--clay); color:#fff; font-size:15px; font-weight:700; padding:3px 9px; border-radius:14px; white-space:nowrap; }
+  .legend { position:absolute; left:40px; top:1440px; width:2320px; border-top:2px solid var(--ink); padding-top:18px; display:grid; grid-template-columns:1fr 1fr; column-gap:48px; row-gap:10px; }
+  .legend div { font-size:18px; line-height:1.4; color:var(--muted); }
+  .legend b { display:inline-block; background:var(--clay); color:#fff; border-radius:14px; padding:1px 10px; margin-right:8px; }
+  .legend i { font-style:normal; color:var(--ink); font-weight:700; }
+</style></head>
+<body>
+<h1>ForkLab architecture: components and how they interact</h1>
+<p class="sub">Numbered tags on arrows match the flows at the bottom. Devnet only. FORKLAB_MODE=mock swaps MongoDB, AI and chain for in-memory store, cached answers and receipts labeled Simulated.</p>
+
+<p class="col" style="left:40px;">Clients</p>
+<p class="col" style="left:440px;">Web app</p>
+<p class="col" style="left:1320px;">External services</p>
+<p class="col" style="left:1940px;">Background jobs (same server)</p>
+
+<!-- Clients -->
+<div class="box" style="left:40px;top:160px;width:340px;height:350px;">
+  <h3>Browser</h3>
+  <p><b>Next.js 16 · React 19 · Tailwind 4</b></p>
+  <ul>
+    <li>/build editor (React Flow)</li>
+    <li>/learn tutorials with step checks</li>
+    <li>/library, /community, /m/[hash]</li>
+    <li>Plays mechanics locally with the engine; three.js draws</li>
+    <li>Verify tab, /status page</li>
+  </ul>
+</div>
+<div class="box" style="left:40px;top:540px;width:340px;height:150px;">
+  <h3>Wallet</h3>
+  <p>Solana wallet adapter. Signs license transactions and signMessage for game entries.</p>
+</div>
+<div class="box" style="left:40px;top:720px;width:340px;height:150px;">
+  <h3>Blink clients</h3>
+  <p>X and Blink-aware wallets unfurl a mechanic link via /actions.json.</p>
+</div>
+
+<!-- App container -->
+<div class="container" style="left:430px;top:150px;width:820px;height:880px;"><span class="lbl">Next.js app · Vultr Ubuntu 24.04 · Caddy (TLS) · systemd</span></div>
+<div class="box" style="left:460px;top:180px;width:760px;height:400px;">
+  <h3>API routes (zod 4 validates every request)</h3>
+  <ul>
+    <li><b>/api/mechanics</b> publish · [hash]/fork · diff · lineage · play · export · similar</li>
+    <li><b>/api/ai</b> graph · explain · changelog · theme</li>
+    <li><b>/api/search</b> · /api/library · /api/assets · /api/creators</li>
+    <li><b>/api/challenges/[id]</b> entries · leaderboard · vote · snapshot.json</li>
+    <li><b>/api/actions/mechanic/[hash]</b> + /actions.json (Solana Actions 1.6, v2.1)</li>
+    <li><b>/api/receipts</b> · /api/status · /api/health · /api/chaos/gemini</li>
+  </ul>
+</div>
+<div class="box" style="left:460px;top:620px;width:760px;height:390px;">
+  <h3>Services</h3>
+  <ul>
+    <li><b>publish</b>: canonical hash, reject duplicates, attribution, queue anchor</li>
+    <li><b>license</b>: build the transaction; confirm it on devnet hit our program’s PDA</li>
+    <li><b>challenges</b>: server replays input scripts; board uses the replay score only</li>
+    <li><b>search + recommend</b>: vector kNN + lineage, reciprocal rank fusion 1/(60+rank)</li>
+    <li><b>AI router</b>: 1 in flight, 8 per minute, 2,000-char prompts, breaker, JSON repair, key redaction</li>
+    <li><b>store</b>: MongoStore in live mode, MemoryStore in mock mode</li>
+  </ul>
+</div>
+
+<!-- Engine -->
+<div class="box core" style="left:430px;top:1080px;width:820px;height:320px;">
+  <h3>@forklab/engine (pure TypeScript, no React, Next or Solana)</h3>
+  <ul>
+    <li><b>schema</b> (zod) · <b>hash</b>: canonical JSON + sha256 (@noble/hashes)</li>
+    <li><b>attribution</b>: counted nodes only, shares in bps summing to 10,000 · <b>diff</b></li>
+    <li><b>world + interpreter</b>: int32 fixed-point, named seeded RNG streams</li>
+    <li><b>rules · replay · minigame</b> compose · <b>payout</b> flatten · <b>structure</b> vector</li>
+    <li><b>export</b>: C# mechanic and Unity asset zip (JSZip)</li>
+    <li>Used by the browser, the server and the chain jobs</li>
+  </ul>
+</div>
+
+<!-- External -->
+<div class="box ext" style="left:1320px;top:160px;width:560px;height:330px;">
+  <h3>MongoDB Atlas</h3>
+  <ul>
+    <li><b>graphs</b> (_id = graph hash), assets, licenses (unique graphId + buyer), challenges, entries, replays, votes, activity</li>
+    <li><b>$graphLookup</b> on parentId: ancestors and descendants for lineage and payouts</li>
+    <li><b>Vector Search</b>: graphs_structure, graphs_semantic (768-d), assets_semantic; brute-force cosine fallback</li>
+  </ul>
+</div>
+<div class="box ext" style="left:1320px;top:520px;width:560px;height:250px;">
+  <h3>AI providers, in order</h3>
+  <ul>
+    <li><b>Gemini</b> gemini-2.5-flash: generateContent, JSON schema output · gemini-embedding-001, 768-d</li>
+    <li><b>NVIDIA Nemotron</b>: OpenAI-style chat completions, 45 s timeout</li>
+    <li><b>Cached answers</b>, then a <b>local</b> non-AI fallback</li>
+    <li>Breaker opens after 3 failures in 60 s</li>
+  </ul>
+</div>
+<div class="box ext" style="left:1320px;top:800px;width:560px;height:350px;">
+  <h3>Solana devnet</h3>
+  <ul>
+    <li><b>Anchor 0.32 program “forklab”</b> (Rust)</li>
+    <li>initialize: Config PDA, 5% fee</li>
+    <li>register_mechanic: graph hash + author bps</li>
+    <li>license: fee, then each author; dust to first</li>
+    <li>create_challenge (escrow) · settle (snapshot hash, payout bps) · refund after grace</li>
+    <li><b>Memo program</b>: {app, kind, graph, prev} hash chain</li>
+  </ul>
+</div>
+<div class="box ext" style="left:1320px;top:1180px;width:560px;height:220px;">
+  <h3>Unity</h3>
+  <p>Downloaded zip: C# mechanic whose header holds the graph hash and authors; prefabs and themes as ScriptableObjects, JSON and an importer script.</p>
+</div>
+
+<!-- Jobs -->
+<div class="box job" style="left:1940px;top:160px;width:420px;height:330px;">
+  <h3>Chain worker</h3>
+  <p>anchor-worker.ts</p>
+  <ul>
+    <li>Paid mechanic: register_mechanic + Memo in one transaction</li>
+    <li>Free graph: Memo only</li>
+    <li>One at a time, 1.2 s gap, backoff to 60 s on 429; airdrop top-up</li>
+  </ul>
+</div>
+<div class="box job" style="left:1940px;top:520px;width:420px;height:330px;">
+  <h3>Weekly settle</h3>
+  <p>settle-weekly.ts, hourly systemd timer</p>
+  <ul>
+    <li>Ended game: flatten payout from the snapshot</li>
+    <li>Send settle + Memo with the same hash</li>
+    <li>Open next ISO week’s game; idempotent</li>
+  </ul>
+</div>
+<div class="box job" style="left:1940px;top:880px;width:420px;height:270px;">
+  <h3>Weekly bot</h3>
+  <p>post-weekly.ts</p>
+  <ul>
+    <li>Read the most-forked mechanic from MongoDB</li>
+    <li>Grok writes a one-line blurb</li>
+    <li>Post to X with the Blink URL; --dry-run to Discord</li>
+  </ul>
+</div>
+
+<!-- Arrows -->
+<svg width="2400" height="1760" viewBox="0 0 2400 1760">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#A4441D"/></marker>
+  </defs>
+  <g stroke="#A4441D" stroke-width="3" fill="none" marker-end="url(#a)">
+    <!-- Browser -> API -->
+    <path d="M380 300 L458 300"/>
+    <!-- Blink -> API -->
+    <path d="M380 795 L415 795 L415 540 L458 540"/>
+    <!-- API -> Services -->
+    <path d="M840 580 L840 618"/>
+    <!-- Services -> Engine -->
+    <path d="M840 1010 L840 1078"/>
+    <!-- App -> Mongo -->
+    <path d="M1250 330 L1318 330" marker-start="url(#a)"/>
+    <!-- App -> AI -->
+    <path d="M1250 640 L1318 640" marker-start="url(#a)"/>
+    <!-- App -> Solana -->
+    <path d="M1250 900 L1318 900" marker-start="url(#a)"/>
+    <!-- Engine -> Unity -->
+    <path d="M1250 1290 L1318 1290"/>
+    <!-- Wallet -> Solana (bottom route) -->
+    <path d="M380 640 L400 640 L400 1420 L1290 1420 L1290 1060 L1318 1060"/>
+    <!-- Worker -> Mongo / Solana -->
+    <path d="M1940 300 L1882 300"/>
+    <path d="M1940 440 L1910 440 L1910 840 L1882 840"/>
+    <!-- Settle -> Mongo / Solana -->
+    <path d="M1940 600 L1925 600 L1925 470 L1882 470"/>
+    <path d="M1940 780 L1925 780 L1925 960 L1882 960"/>
+  </g>
+</svg>
+
+<!-- Arrow tags -->
+<span class="tag" style="left:384px;top:262px;">1 2 3 6 7</span>
+<span class="tag" style="left:404px;top:880px;">4 Blink</span>
+<span class="tag" style="left:1252px;top:292px;">2 3 6</span>
+<span class="tag" style="left:1254px;top:602px;">1 3</span>
+<span class="tag" style="left:1256px;top:862px;">4</span>
+<span class="tag" style="left:1256px;top:1252px;">7</span>
+<span class="tag" style="left:660px;top:1404px;">4 sign · 5 verify via RPC</span>
+<span class="tag" style="left:855px;top:1030px;">every flow</span>
+<span class="tag" style="left:1890px;top:262px;">2</span>
+<span class="tag" style="left:1886px;top:810px;">2</span>
+<span class="tag" style="left:1886px;top:432px;">6</span>
+<span class="tag" style="left:1886px;top:978px;">6</span>
+
+<div class="legend">
+  <div><b>1</b><i>Build with AI:</i> editor → /api/ai/graph → AI router → Gemini (or Nemotron) → zod check, one repair retry → proposal shown → user presses Apply</div>
+  <div><b>2</b><i>Publish:</i> /api/mechanics → engine hashes canonical JSON and computes author bps → Mongo graphs → chain worker → Memo (and register_mechanic if paid) on devnet</div>
+  <div><b>3</b><i>Discover:</i> /api/search → Gemini embedding → Atlas $vectorSearch (semantic + structure) + $graphLookup kin → rank fusion → results</div>
+  <div><b>4</b><i>License:</i> app or Blink builds the transaction → wallet signs → Anchor license pays fee + every author atomically → server confirms → licenses</div>
+  <div><b>5</b><i>Verify:</i> browser re-hashes the stored graph → RPC getTransaction → base58-decode the Memo → compare hash and parent</div>
+  <div><b>6</b><i>Weekly game:</i> play in browser → input script + signMessage → server replays with the engine → replays → weekly settle pays players and authors</div>
+  <div><b>7</b><i>Export:</i> /api/mechanics/[hash]/export → engine writes C# and asset files → JSZip → import into Unity</div>
+  <div><b>·</b><i>Fallbacks:</i> Mongo down → memory (dev) or fail fast (live) · vector search down → brute force · Gemini down → Nemotron → cache → local · RPC 429 → backoff</div>
+</div>
+</body></html>
