@@ -1,6 +1,6 @@
-# ForkLab: build plan (paste into Cursor)
+# Hold My Controller: build plan (paste into Cursor)
 
-> **For the coding agent:** work task by task in order. Each task lists Files, Produces, and named tests. Write the tests first, watch them fail, implement, watch them pass, commit. Do not start a P1 task until every P0 task is green. Placeholder name "ForkLab"; pick the real name and domain on day one.
+> **For the coding agent:** work task by task in order. Each task lists Files, Produces, and named tests. Write the tests first, watch them fail, implement, watch them pass, commit. Do not start a P1 task until every P0 task is green.
 
 **Judged on (general track):** Robustness (how well the system works), Theme (Homer's Odyssey), Creativity (how innovative). Section 0.5 maps each to concrete features.
 

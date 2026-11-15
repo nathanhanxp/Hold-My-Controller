@@ -1,5 +1,5 @@
 ---
-description: ForkLab project rules
+description: Hold My Controller project rules
 alwaysApply: true
 ---
 Follow PLAN.md task order. Tests first. Never commit secrets or keypairs.

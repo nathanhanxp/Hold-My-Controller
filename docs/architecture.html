@@ -27,7 +27,7 @@
 </style></head>
 <body>
 <h1>Hold My Controller architecture: components and how they interact</h1>
-<p class="sub">Numbered tags on arrows match the flows at the bottom. Devnet only. FORKLAB_MODE=mock swaps MongoDB, AI and chain for in-memory store, cached answers and receipts labeled Simulated.</p>
+<p class="sub">Numbered tags on arrows match the flows at the bottom. Devnet only. Mock mode swaps MongoDB, AI and chain for in-memory store, cached answers and receipts labeled Simulated.</p>
 
 <p class="col" style="left:40px;">Clients</p>
 <p class="col" style="left:440px;">Web app</p>
@@ -82,7 +82,7 @@
 
 <!-- Engine -->
 <div class="box core" style="left:430px;top:1080px;width:820px;height:320px;">
-  <h3>@forklab/engine (pure TypeScript, no React, Next or Solana)</h3>
+  <h3>Game engine package (pure TypeScript, no React, Next or Solana)</h3>
   <ul>
     <li><b>schema</b> (zod) · <b>hash</b>: canonical JSON + sha256 (@noble/hashes)</li>
     <li><b>attribution</b>: counted nodes only, shares in bps summing to 10,000 · <b>diff</b></li>
@@ -114,7 +114,7 @@
 <div class="box ext" style="left:1320px;top:800px;width:560px;height:350px;">
   <h3>Solana devnet</h3>
   <ul>
-    <li><b>Anchor 0.32 program “forklab”</b> (Rust)</li>
+    <li><b>Anchor 0.32 program</b> (Rust)</li>
     <li>initialize: Config PDA, 5% fee</li>
     <li>register_mechanic: graph hash + author bps</li>
     <li>license: fee, then each author; dust to first</li>

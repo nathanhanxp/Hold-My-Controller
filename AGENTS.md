@@ -1,4 +1,4 @@
-# ForkLab agent rules
+# Hold My Controller agent rules
 
 Follow PLAN.md task order. Tests first. Never commit secrets or keypairs.
 The engine package must not import React, Next, or Solana.

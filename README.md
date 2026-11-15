@@ -1,7 +1,5 @@
 # Hold My Controller
 
-(Internal package, program and environment names still use `forklab`, the working name during development.)
-
 Every game mechanic is a playable, forkable node graph. Play it in the browser, remix it, export C# for Unity, and when someone licenses a mechanic the payment splits on Solana devnet between the people who wrote its nodes. A Community tab runs a weekly minigame on the winning mechanic with replay-verified scores and a prize pool that pays the top players and the mechanic's contributors.
 
 The build plan is in [PLAN.md](PLAN.md). Agent rules and run commands are in [AGENTS.md](AGENTS.md).
